@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title> 宝石检索器 </title>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1309180_m0vigzfu7y.css">
+    <style type="text/css">
+        .bod1 {
+            background: #aa4b6b;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        
+        .search-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate( -50%, -50%);
+            background: #FD2C6B;
+            height: 40px;
+            border-radius: 30px;
+            /*圆角边框*/
+            padding: 10px;
+        }
+        
+        .search-box:hover>.search-text {
+            width: 400px;
+        }
+        
+        .search-box:hover>.search-btn {
+            background: white;
+            color: #26087b;
+        }
+        
+        .search-btn {
+            color: white;
+            float: right;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #FD2C6B;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+        }
+        
+        .search-text {
+            border: none;
+            background: none;
+            outline: none;
+            float: left;
+            padding: 0;
+            color: white;
+            font-size: 20px;
+            font-family: "Microsoft YaHei UI Light";
+            transition: 0.5s;
+            line-height: 40px;
+            width: 0px;
+        }
+    </style>
+    <style>
+        #demo {
+            text-align: center;
+            height: "1000px";
+            width: "1000px";
+            line-height: 850px;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body class="bod1">
+    <div id="demo">
+        <p>
+            <font color="#42426F">宝石检索器</font>
+        </p>
+    </div>
+    <div class="search-box">
+        <input class="search-text" id="inputs" value="" placeholder="请输入您想查询的宝石">
+        <a class="search-btn" onclick="myFunction()">
+            <i class="iconfont iconchazhao"></i>
+        </a>
+
+    </div>
+    <script>
+        function isInArray(arr, value) {
+            for (var i = 0; i < arr.length; i++) {
+                if (value == arr[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function myFunction() {
+            var x, text;
+
+            // 获取 id="numb" 的值
+            x = document.getElementById("inputs").value;
+            var arr = ["力量宝石", "空间宝石", "不死宝石", "生命宝石", "时间宝石", "泰坦宝石", "傀儡宝石", "虚无宝石", "灰烬宝石", "护卫宝石", "幻境宝石", "亡灵宝石", "剧毒宝石", "末影宝石", "置换宝石", "饥饿宝石", "双倍宝石", "蠕变宝石", "涅槃宝石", "纯净宝石", "毁灭宝石", "荆棘宝石", "金属宝石", "浪涌宝石", "克隆宝石", "凋零宝石", "雷电宝石", "锁链宝石", "瞬移宝石", "诅咒宝石", "坠落宝石", "烈焰宝石", "冰雪宝石"]
+            if (isInArray(arr, x) == true) {
+                y = x;
+                ur = "https://jefferyz070607.github.io/gems/";
+                url = ur + y + ".html";
+                location.href = url;
+            } else {
+                alert("您输入的宝石不存在");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<h1 id="树状数组">树♂状♂数♂组</h1>
+<h2 id="一.前言">一.前言</h2>
+<p><del>我猜你是因为在遇到某些区间问题费劲心思却始终TLE，一看题解原来有个叫树状数组的东西所以来到这的吧（喜）</del>。树状数组是高级数据结构中<del>比较容易写()</del>编码量比较少的数据结构。但他能够高效的维护一些动态区间和问题。如果你有前缀和的基础，那么这篇文章能带你完美的入门树状数组，<del>如果没有，我未来会出一篇专门讲前缀和与差分的文章，如果没出，那当我没说🌝</del>（）。
+## 二.问题引入
+当我们在处理一些<strong>静态区间</strong>加和问题时，假设对序列<span
+class="math inline"><em>a</em></span>有<span
+class="math inline"><em>m</em></span>次询问，序列长<span
+class="math inline"><em>n</em></span>，如果我们对其进行暴力加和，我们将得到一个时间复杂度为<span
+class="math inline"><em>Θ</em>(<em>m</em><em>n</em>)</span>的算法，这显然是不行的，<del>你不会想<span
+class="math inline"><em>n</em><sup>2</sup></span>过百万吧（恼）</del>。于是我们用到了<strong>前缀和</strong>这种手段对序列预处理得到原序列的前缀和序列F。<br />
+即前缀和序列<span
+class="math inline">$F[i]=\sum_{j=1}^i{a[j]}$</span><br />
+我们可以在<span
+class="math inline"><em>Θ</em>(<em>n</em>)</span>的时间内使用递推公式<span
+class="math inline"><em>F</em>[<em>i</em>] = <em>a</em>[<em>i</em>] + <em>F</em>[<em>i</em>−1]</span>得到。<br />
+当我们需要查询区间<span class="math inline"><em>L</em></span>-&gt;<span
+class="math inline"><em>R</em></span>的区间和时可以通过<span
+class="math inline"><em>Θ</em>(1)</span>的一次减法得到，结果显然就是<span
+class="math inline"><em>F</em>[<em>R</em>] − <em>F</em>[<em>L</em>−1]</span><del>?什么你看不懂那就给你个简单推导一下吧🌝</del>
+<span
+class="math inline">$\sum_{j=L}^R{a[j]}=\sum_{k=1}^R{a[k]}-\sum_{g=1}^{L-1}{a[g]}$</span><br />
+正如上面所加粗的“<strong>静态</strong>”。当区间发生动态变化时，前缀和数组就会被打乱，我们需要重新处理前缀和数组。假设有<span
+class="math inline"><em>m</em></span>次修改，则需要<span
+class="math inline"><em>Θ</em>(<em>m</em><em>n</em>)</span>的时间，这还不如不处理呢(doge)。所以我们需要一种高级的数据结构对区间和进行高效维护，我们这篇文章所要讨论的就是其中的一种：<strong>树状数组</strong>。
+## 三.树状数组简介<br />
+既然我们需要对一个长度为<span
+class="math inline"><em>n</em></span>的大区间进行整体维护，毫无疑问我们不能对这么大的区间进行暴力修改，查询。我们必须要把这个大区间分成若干的小区间进行整体维护，通过若干个小区间的整体操作来维护这个巨大的区间。那么如何拆分这个区间呢。一种比较容易让我们想到的是分治法，类似归并排序把一个大区间不断一分为二，这个分治会需要消耗大量的空间我们把这个数据结构叫做<strong>线段树</strong>。
+<del>本文不展开，因为怕你们混淆了。</del>
+而与线段树不同的是，树状数组通过巧妙的二进制划分把大区间分解成了若干个小区间之和。仅用到<span
+class="math inline"><em>n</em></span>的空间便实现了区间的维护。<br />
+## 四.树状数组的构造 众所周知任何一个实数都能分解成若干个<span
+class="math inline">2<sup><em>k</em></sup></span>次幂。例如<span
+class="math inline">7 = 2<sup>2</sup> + 2<sup>1</sup> + 2<sup>0</sup></span>，树状数组利用了这个性质把<span
+class="math inline">[1,7]</span>区间和分解成了<span
+class="math inline">[1,4]</span>,<span
+class="math inline">[5,6]</span>,<span
+class="math inline">[7]</span>。同理任何一个<span
+class="math inline">[1,<em>n</em>]</span>的区间都能按这个性质分解。我们令<span
+class="math inline"><em>c</em>[<em>N</em>]</span>为树状数组，其中<span
+class="math inline"><em>c</em>[<em>k</em>]</span>表示以k元素所在的小区间之和，例如<span
+class="math inline"><em>c</em>[6] = <em>a</em>[5] + <em>a</em>[6]</span>。那么我们如何知道每一个<span
+class="math inline"><em>c</em>[<em>k</em>]</span>所包含的区间是什么呢？先把k变成
+<del>二次元</del> 说错了，是二进制。例如是6我们可以得到<span
+class="math inline">110</span>，通过二进制我们可以得到<span
+class="math inline">6 = 2<sup>2</sup> + 2<sup>1</sup></span>，观察末位的数，我们不难得出以<span
+class="math inline">6</span>结尾的区间是<span
+class="math inline">[6−2<sup>1</sup>+1,6]</span>。你发现规律了吗！假设<span
+class="math inline"><em>x</em></span>是<span
+class="math inline"><em>k</em></span>二进制下最后一个<span
+class="math inline">1</span>与末位所有的<span
+class="math inline">0</span>构成的数😆，那么<span
+class="math inline"><em>c</em>[<em>k</em>]</span>储存的区间是<span
+class="math inline">[<em>k</em>−<em>x</em>+1,<em>k</em>]</span>！<br />
+那么我们应该如何获取这个奇妙的<span
+class="math inline"><em>x</em></span>呢，这就设计到了一个更加巧妙（疯狂）的运算了，他叫做<span
+class="math inline"><em>l</em><em>o</em><em>w</em><em>b</em><em>i</em><em>t</em></span>！我们可以通过下面的位运算得到<span
+class="math inline"><em>l</em><em>o</em><em>w</em><em>b</em><em>i</em><em>t</em>(<em>x</em>)</span>。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> lowbit<span class="op">(</span><span class="dt">int</span> x<span class="op">){</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">&amp;-</span>x<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>为什么把<span class="math inline"><em>x</em></span>位与<span
+class="math inline"> − <em>x</em></span>就能得到<span
+class="math inline"><em>x</em></span>二进制下最后一个1与剩余0构成的数呢？这个是网上大部分blog与书籍都没有解释的。
+<del>我浅浅抽象的解释一下</del>
+。众所周知在机器内部一个数的负数用补码表示法储存，即符号位不变，其他位取反，最后<span
+class="math inline"> + 1</span>。我们把<span
+class="math inline"><em>x</em></span>取负数相当于在二进制下把x所有的<span
+class="math inline">0</span>变成了<span
+class="math inline">1</span>，<span
+class="math inline">1</span>变成了<span
+class="math inline">0</span>，我们再让得到的数+1，就能当取反状态下的最后一个<span
+class="math inline">0</span>变为<span
+class="math inline">1</span>（因为<span
+class="math inline"> + 1</span>后取反得到<span
+class="math inline">1</span>即原来的<span
+class="math inline">0</span>都会向前进位）。因为进位的关系后面的<span
+class="math inline">1</span>都变成了<span
+class="math inline">0</span>，那些变成<span
+class="math inline">0</span>的<span
+class="math inline">1</span>，在原数下一定是<span
+class="math inline">0</span>。
+<del>这不是废话吗，取反后变成1那原来肯定是0啊。</del> 在经过<span
+class="math inline"> + 1</span>后，取反状态下最后的<span
+class="math inline">0</span>即原来的<span
+class="math inline">1</span>发生了变化，同时取反状态下这个<span
+class="math inline">0</span>后面的<span
+class="math inline">1</span>即原来的<span
+class="math inline">0</span>因为<span
+class="math inline"> + 1</span>后的进位变成了<span
+class="math inline">0</span>。再经过位与操作，我们不难发生只有取反状态下二进制最后中的<span
+class="math inline">0</span>即原来的<span
+class="math inline">1</span>发生了变化变为了<span
+class="math inline">1</span>经过位与操作下变成了1，而这个位之前由于都被取反了位与后必定是0，而这位之后原状态与取反状态下均为<span
+class="math inline">0</span>所以也都是<span
+class="math inline">0</span>。那么我们就获得了一个数二进制下最后一个1与末位的0所构成的数。
+<del>好一个废话连篇的长篇大论啊😭😭😭。</del></p>

@@ -234,10 +234,25 @@ canvas {
   margin: 10px 0 0;
 }
 
+/* ... (Previous CSS remains the same) ... */
+
 .nine p {
   font-size: 2rem;
   font-weight: lighter;
 }
+
+/* 新增视频样式 */
+.nine .outro-video {
+  max-width: 700px; /* 最大宽度 */
+  width: 80%; /* 响应式宽度 */
+  height: auto;
+  margin: 30px auto; /* 居中并提供上下边距 */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: block;
+  opacity: 0; /* 初始隐藏，由 GSAP 控制显示 */
+}
+
 
 #replay {
   z-index: 3;
@@ -246,6 +261,7 @@ canvas {
 
 /* Media Queries */
 @media screen and (max-height: 1000px) {
+/* ... (rest of media query for max-height: 1000px) ... */
   .six .hat {
     left: 49%;
   }
@@ -308,8 +324,15 @@ canvas {
     font-size: 1.5rem;
     font-weight: lighter;
   }
+  
+  /* 移动端视频样式调整 */
+  .nine .outro-video {
+    width: 95%;
+    margin: 20px auto;
+  }
 }
 @keyframes rotate {
+/* ... (rest of keyframes) ... */
   from {
     transform: rotate(0deg);
   }
@@ -319,11 +342,12 @@ canvas {
 }
 
 .play-pause {
+/* ... (rest of play-pause styles) ... */
   width: 50px;
   height: 50px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url('../img/play.svg');
+  background-image: url("../img/play.svg");
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -336,11 +360,12 @@ canvas {
 }
 
 .play-pause.playing {
-  background-image: url('../img/pause.svg');
+  background-image: url("../img/pause.svg");
   animation: rotate 2s linear infinite;
 }
 
 .startSign {
+/* ... (rest of startSign styles) ... */
   /* 居中 */
   display: flex;
   justify-content: center;
@@ -351,12 +376,12 @@ canvas {
 
 .startSign .button {
   padding: 1rem 1.6rem;
-  border: 1px solid #03C160;
+  border: 1px solid #03c160;
   border-radius: 5px;
 }
 
 .startSign .button:hover {
-  background-color: #03C160;
+  background-color: #03c160;
   color: #fff;
   padding: 1rem 1.6rem;
   cursor: pointer;

@@ -148,13 +148,11 @@
       </svg>
     </div>
     <div class="nine">
-      <div class="reward-video-wrapper">
-        <video id="rewardVideo" controls autoplay muted loop>
-          <!-- 替换这里的 src 为您的视频路径 -->
-          <source src="a.mp4" type="video/mp4">
-          您的浏览器不支持视频播放。
-        </video>
-      </div>
+      <video id="finalVideo" class="outro-video" controls loop playsinline muted>
+        <!-- 请将 'videos/your_video_file.mp4' 替换为您的实际视频路径 -->
+        <source src="a.mp4" type="video/mp4">
+        您的浏览器不支持视频播放。
+      </video>
       <p data-node-name="outroText">Okay, now come back and tell me if you liked it.</p>
       <p id="replay" data-node-name="replayText">Or click, if you want to watch it again.</p>
       <p class="last-smile" data-node-name="outroSmiley">:)</p>

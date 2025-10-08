@@ -8,6 +8,36 @@
   <title>生日快乐!!! :)</title>
   <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
   <link rel="stylesheet" href="style/style.css">
+
+  <!-- 新增的视频样式 -->
+  <style>
+    /* 1. 视频容器样式：用于水平居中和限制最大宽度 */
+    .reward-video-wrapper {
+      /* 水平居中 */
+      margin: 20px auto;
+      /* 设置最大宽度，确保在大屏幕上不会过大 */
+      max-width: 640px;
+      /* 确保在小屏幕上也能自适应 */
+      width: 90%;
+      /* 确保内部元素居中 */
+      text-align: center;
+    }
+
+    /* 2. 视频元素样式：确保视频填充容器并保持响应性 */
+    .reward-video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block; /* 移除可能的底部空白 */
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 确保九宫格容器内的文本也保持居中，如果它没有被外部CSS控制的话 */
+    .nine {
+        text-align: center;
+        padding-top: 20px; /* 确保视频和上方的元素有间距 */
+    }
+  </style>
 </head>
 
 <body>
@@ -110,7 +140,7 @@
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="20" />
       </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+   <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="20" />
       </svg>
       <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
